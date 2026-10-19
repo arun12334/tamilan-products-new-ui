@@ -1,0 +1,73 @@
+<main>
+  <section class="c741926-COLL-185204-ITEMS-page-hero c741926-COLL-185204-ITEMS-collection-hero">
+    <div class="container-xl">
+      <div class="c741926-COLL-185204-ITEMS-breadcrumbs"><a routerLink="/">Home</a> <i class="bi bi-chevron-right"></i> <a routerLink="/collections">Collections</a> <i class="bi bi-chevron-right"></i> <span>{{ title }}</span></div>
+      <span class="c741926-COLL-185204-ITEMS-eyebrow">TAMILAN PRODUCTS</span>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </div>
+  </section>
+  <section class="container-xl c741926-COLL-185204-ITEMS-page-section">
+    <div class="c741926-COLL-185204-ITEMS-collection-layout">
+      <aside class="c741926-COLL-185204-ITEMS-collection-sidebar" [class.c741926-COLL-185204-ITEMS-filters-open]="filtersOpen()">
+        <h3>Browse categories</h3>
+        <a routerLink="/collections">All collections <span>{{ products.length }}</span></a>
+        @for (item of categories; track item.category) {
+          <a [routerLink]="['/collection']" [queryParams]="{ category: item.category }" [class.c741926-COLL-185204-ITEMS-selected]="category() === item.category">{{ item.name }} <span>{{ item.count }}</span></a>
+        }
+        <div class="c741926-COLL-185204-ITEMS-filter-block">
+          <h3>Colour option</h3>
+          @for (color of ['Gold', 'White', 'Silver', 'Green', 'Blue', 'Rose']; track color) {
+            <label><input type="checkbox" [checked]="selectedColors().includes(color)" (change)="toggleColor(color)"> {{ color }}</label>
+          }
+        </div>
+        <div class="c741926-COLL-185204-ITEMS-filter-block">
+          <h3>Size</h3>
+          @for (size of ['1.5MM', '2MM', '3MM', '4MM']; track size) {
+            <label><input type="checkbox" [checked]="selectedSizes().includes(size)" (change)="toggleSize(size)"> {{ size }}</label>
+          }
+        </div>
+        <div class="c741926-COLL-185204-ITEMS-filter-block">
+          <h3>Price range</h3>
+          <div class="c741926-COLL-185204-ITEMS-price-fields">
+            <label>Min ₹<input #minInput type="number" min="0" [value]="minPrice()" (input)="setMinPrice(minInput.value)"></label>
+            <label>Max ₹<input #maxInput type="number" min="0" [value]="maxPrice()" (input)="setMaxPrice(maxInput.value)"></label>
+          </div>
+        </div>
+      </aside>
+      <div class="c741926-COLL-185204-ITEMS-collection-main">
+        <div class="c741926-COLL-185204-ITEMS-collection-toolbar">
+          <button class="c741926-COLL-185204-ITEMS-mobile-filter-toggle" type="button" (click)="filtersOpen.update(open => !open)"><i class="bi bi-sliders"></i> Filters</button>
+          <span>Showing {{ filteredProducts().length }} products · {{ category() || 'All collections' }}</span>
+          <div class="c741926-COLL-185204-ITEMS-collection-toolbar-right">
+            <input #searchInput type="search" [value]="search()" (input)="search.set(searchInput.value)" placeholder="Search this collection..." aria-label="Search this collection">
+            <select #sortSelect [value]="sort()" (change)="sort.set(sortSelect.value)" aria-label="Sort products">
+              <option value="featured">Featured</option><option value="az">Alphabetically, A–Z</option><option value="za">Alphabetically, Z–A</option>
+              <option value="low">Price, low to high</option><option value="high">Price, high to low</option><option value="discount">Best discount</option>
+            </select>
+          </div>
+        </div>
+        @if (filteredProducts().length) {
+          <div class="c741926-COLL-185204-ITEMS-product-grid">
+            @for (product of filteredProducts(); track product.id) {
+              <article class="c741926-COLL-185204-ITEMS-product-card">
+                <div class="c741926-COLL-185204-ITEMS-product-image">
+                  <a [routerLink]="['/product']" [queryParams]="{ id: product.id }"><img [src]="product.image" [alt]="product.name" loading="lazy"></a>
+                  @if (product.oldPrice > product.price) { <span class="c741926-COLL-185204-ITEMS-discount-tag">-{{ ((product.oldPrice - product.price) / product.oldPrice * 100) | number:'1.0-0' }}%</span> }
+                  <button class="c741926-COLL-185204-ITEMS-product-wish" [class.c741926-COLL-185204-ITEMS-saved]="store.isWishlisted(product.id)" type="button" (click)="store.toggleWishlist(product)" [attr.aria-label]="store.isWishlisted(product.id) ? 'Remove from wishlist' : 'Add to wishlist'"><i class="bi" [class.bi-heart-fill]="store.isWishlisted(product.id)" [class.bi-heart]="!store.isWishlisted(product.id)"></i></button>
+                </div>
+                <div class="c741926-COLL-185204-ITEMS-product-info">
+                  <h3 class="c741926-COLL-185204-ITEMS-product-title"><a [routerLink]="['/product']" [queryParams]="{ id: product.id }">{{ product.name }}</a></h3>
+                  <div class="c741926-COLL-185204-ITEMS-product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }} @if (product.oldPrice > product.price) { <span class="c741926-COLL-185204-ITEMS-old-price">{{ product.oldPrice | currency:'INR':'symbol':'1.2-2' }}</span> }</div>
+                  <div class="c741926-COLL-185204-ITEMS-product-actions"><button class="c741926-COLL-185204-ITEMS-btn-add" type="button" (click)="store.addToCart(product)"><i class="bi bi-bag-plus me-1"></i>Add to Cart</button><a class="btn c741926-COLL-185204-ITEMS-btn-view" [routerLink]="['/product']" [queryParams]="{ id: product.id }" aria-label="View product"><i class="bi bi-eye"></i></a></div>
+                </div>
+              </article>
+            }
+          </div>
+        } @else {
+          <div class="c741926-COLL-185204-ITEMS-empty-page"><i class="bi bi-search"></i><h3>No matching products</h3><p>Try changing your search or filters.</p><button class="btn c741926-COLL-185204-ITEMS-btn-brand" type="button" (click)="clearFilters()">Clear filters</button></div>
+        }
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+:root{--brand:#70334f;--brand-dark:#51243b;--accent:#b34769;--ink:#2d2529;--muted:#756872;--line:#eadfe5;--soft:#fbf6f8;--cream:#f8eff2;--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:140px}body{margin:0;color:var(--ink);font-family:'DM Sans',Arial,sans-serif;font-size:14px;overflow-x:hidden}a{color:inherit;text-decoration:none}button, input, select{font:inherit}
+html, body { margin: 0; min-height: 100%; font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; box-sizing: border-box; }
+body { background: #fcf8fa; }
+button, input, select { font-family: inherit; }
+input, select { width: 100%; height: 44px; padding: 0 13px; color: #2d2529; background: #fff; border: 1px solid #eadfe5; border-radius: 8px; font: inherit; font-size: 13px; outline: none; }
+input:focus, select:focus { border-color: #70334f; box-shadow: 0 0 0 3px #f4e9ef; }
+input::placeholder { color: #a99aa2; }

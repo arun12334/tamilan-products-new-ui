@@ -1,0 +1,40 @@
+<main>
+        <section class="c902475-ALL-631850-LIST-page-hero">
+            <div class="container-xl">
+                <div class="c902475-ALL-631850-LIST-breadcrumbs"><a href="/">Home</a> <i class="bi bi-chevron-right"></i> All
+                    collections</div><span class="c902475-ALL-631850-LIST-eyebrow">FIND YOUR NEXT FAVOURITE</span>
+                <h1>Explore All Collections</h1>
+                <p>Everything you need for Aari work, embroidery, jewellery making and tailoring.</p>
+            </div>
+        </section>
+        <section class="container-xl c902475-ALL-631850-LIST-page-section">
+            <div class="c902475-ALL-631850-LIST-category-grid c902475-ALL-631850-LIST-collections-all-grid">
+                @for (collection of collections; track collection.category) {
+                    <a class="c902475-ALL-631850-LIST-category-card" [routerLink]="['/collection']" [queryParams]="{ category: collection.category }">
+                        <img [src]="collection.image" [alt]="collection.name" loading="lazy">
+                        <span class="c902475-ALL-631850-LIST-category-arrow"><i class="bi bi-arrow-up-right"></i></span>
+                        <div class="c902475-ALL-631850-LIST-category-card-info"><h4>{{ collection.name }}</h4><p>{{ collection.count }} Products</p><p>{{ collection.description }}</p></div>
+                    </a>
+                }
+            </div>
+            <div class="c902475-ALL-631850-LIST-section-heading mt-5"><span class="c902475-ALL-631850-LIST-eyebrow">SHOP THE ESSENTIALS</span>
+                <h2>Popular Products</h2>
+            </div>
+            <div class="c902475-ALL-631850-LIST-product-grid">
+                @for (product of products; track product.id) {
+                    <article class="c902475-ALL-631850-LIST-product-card">
+                        <div class="c902475-ALL-631850-LIST-product-image">
+                            <a [routerLink]="['/product']" [queryParams]="{ id: product.id }"><img [src]="product.image" [alt]="product.name" loading="lazy"></a>
+                            @if (product.oldPrice > product.price) { <span class="c902475-ALL-631850-LIST-discount-tag">-{{ ((product.oldPrice - product.price) / product.oldPrice * 100) | number:'1.0-0' }}%</span> }
+                            <button class="c902475-ALL-631850-LIST-product-wish" [class.c902475-ALL-631850-LIST-saved]="store.isWishlisted(product.id)" type="button" (click)="store.toggleWishlist(product)" [attr.aria-label]="store.isWishlisted(product.id) ? 'Remove from wishlist' : 'Add to wishlist'"><i class="bi" [class.bi-heart-fill]="store.isWishlisted(product.id)" [class.bi-heart]="!store.isWishlisted(product.id)"></i></button>
+                        </div>
+                        <div class="c902475-ALL-631850-LIST-product-info">
+                            <h3 class="c902475-ALL-631850-LIST-product-title"><a [routerLink]="['/product']" [queryParams]="{ id: product.id }">{{ product.name }}</a></h3>
+                            <div class="c902475-ALL-631850-LIST-product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }} @if (product.oldPrice > product.price) { <span class="c902475-ALL-631850-LIST-old-price">{{ product.oldPrice | currency:'INR':'symbol':'1.2-2' }}</span> }</div>
+                            <div class="c902475-ALL-631850-LIST-product-actions"><button class="c902475-ALL-631850-LIST-btn-add" type="button" (click)="addToCart(product)"><i class="bi bi-bag-plus me-1"></i>Add to Cart</button><a class="btn c902475-ALL-631850-LIST-btn-view" [routerLink]="['/product']" [queryParams]="{ id: product.id }" aria-label="View product"><i class="bi bi-eye"></i></a></div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </section>
+    </main>

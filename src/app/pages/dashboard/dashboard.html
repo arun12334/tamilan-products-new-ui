@@ -1,0 +1,71 @@
+<main>
+    <section class="c565878-DASH-786986-BOARD-hero-banner" [style.background]="heroBackground">
+      <div class="c565878-DASH-786986-BOARD-hero-shade"></div>
+      <div class="container-xl c565878-DASH-786986-BOARD-hero-content c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
+        <span class="c565878-DASH-786986-BOARD-eyebrow"><i class="bi bi-stars"></i> MADE FOR YOUR CREATIVITY</span>
+        <h1>Every Detail Begins<br><span>With the Right Material.</span></h1>
+        <p>Discover quality Aari, embroidery and jewellery-making materials for your next beautiful creation.</p>
+        <a class="btn c565878-DASH-786986-BOARD-btn-brand btn-lg" href="/collections">Explore Collections <i class="bi bi-arrow-right ms-2"></i></a>
+        <div class="c565878-DASH-786986-BOARD-hero-trust"><span><i class="bi bi-shield-check"></i> Secure payments</span><span><i class="bi bi-box-seam"></i> Quality materials</span><span><i class="bi bi-truck"></i> Shipping across India</span></div>
+      </div>
+      <div class="c565878-DASH-786986-BOARD-hero-floating-card"><i class="bi bi-gem"></i><span><b>Craft your style</b><small>Materials for every idea</small></span></div>
+    </section>
+
+    <section class="container-xl c565878-DASH-786986-BOARD-benefit-strip c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
+      <div><span class="c565878-DASH-786986-BOARD-benefit-icon"><i class="bi bi-shield-lock"></i></span><span><b>Secure shopping</b><small>Safe online payments</small></span></div>
+      <div><span class="c565878-DASH-786986-BOARD-benefit-icon"><i class="bi bi-box-seam"></i></span><span><b>Carefully packed</b><small>Materials arrive with care</small></span></div>
+      <div><span class="c565878-DASH-786986-BOARD-benefit-icon"><i class="bi bi-headset"></i></span><span><b>Friendly support</b><small>We are here to help</small></span></div>
+      <div><span class="c565878-DASH-786986-BOARD-benefit-icon"><i class="bi bi-stars"></i></span><span><b>Made for makers</b><small>Explore craft essentials</small></span></div>
+    </section>
+
+    <section class="c565878-DASH-786986-BOARD-section-space container-xl">
+      <div class="c565878-DASH-786986-BOARD-section-heading c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed"><span class="c565878-DASH-786986-BOARD-eyebrow">FIND YOUR MATERIALS</span><h2>Explore Categories</h2><p>Browse all our collections and discover the right materials for your next creative project.</p></div>
+      @for (section of menuSections; track section.id) {
+        <section class="c565878-DASH-786986-BOARD-category-section c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
+          <div class="c565878-DASH-786986-BOARD-category-section-head">
+            <div><h3>{{ section.name }}</h3><p>{{ section.description }}</p></div>
+            <a class="c565878-DASH-786986-BOARD-text-link" [routerLink]="section.route">View all <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="c565878-DASH-786986-BOARD-category-grid">
+            @for (card of section.cards.slice(0, 5); track card.name) {
+              <a class="c565878-DASH-786986-BOARD-category-card" [routerLink]="section.route">
+              <img [ngSrc]="card.image" [alt]="card.name" width="720" height="540" loading="lazy">
+              <span class="c565878-DASH-786986-BOARD-category-arrow"><i class="bi bi-arrow-up-right"></i></span>
+              <div class="c565878-DASH-786986-BOARD-category-card-info"><h4>{{ card.name }}</h4></div>
+              </a>
+            }
+          </div>
+        </section>
+      }
+      <div class="text-center mt-4 c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed"><a routerLink="/collections" class="btn c565878-DASH-786986-BOARD-btn-outline-brand">Explore All Our Categories <i class="bi bi-arrow-right ms-2"></i></a></div>
+    </section>
+
+    <section class="c565878-DASH-786986-BOARD-feature-band">
+      <div class="container-xl c565878-DASH-786986-BOARD-feature-band-inner c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed"><div><span class="c565878-DASH-786986-BOARD-eyebrow">FOR YOUR NEXT MASTERPIECE</span><h2>Little details.<br><span>Beautiful results.</span></h2><p>Stock up on the essentials that bring your embroidery and Aari designs to life.</p><a [routerLink]="['/collection']" [queryParams]="{ category: &quot;Stone's Collections&quot; }" class="btn btn-light rounded-pill px-4">Shop Stones <i class="bi bi-arrow-right ms-2"></i></a></div><div class="c565878-DASH-786986-BOARD-feature-art"><div class="c565878-DASH-786986-BOARD-art-orbit c565878-DASH-786986-BOARD-orbit-one"></div><div class="c565878-DASH-786986-BOARD-art-orbit c565878-DASH-786986-BOARD-orbit-two"></div><img [src]="imageUrls.stones" alt="Decorative craft stones"></div></div>
+    </section>
+
+    <section class="container-xl c565878-DASH-786986-BOARD-section-space">
+      <div class="c565878-DASH-786986-BOARD-section-heading c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed"><span class="c565878-DASH-786986-BOARD-eyebrow">POPULAR PICKS</span><h2>Customer Favourites</h2><p>Popular picks for Aari work, embroidery and tailoring projects.</p></div>
+      <div class="c565878-DASH-786986-BOARD-product-grid c565878-DASH-786986-BOARD-home-product-grid">
+        @for (product of products; track product.id) {
+          <article class="c565878-DASH-786986-BOARD-product-card">
+            <div class="c565878-DASH-786986-BOARD-product-image">
+              <a [routerLink]="['/product']" [queryParams]="{ id: product.id }"><img [src]="product.image" [alt]="product.name" loading="lazy"></a>
+              @if (product.oldPrice > product.price) { <span class="c565878-DASH-786986-BOARD-discount-tag">-{{ ((product.oldPrice - product.price) / product.oldPrice * 100) | number:'1.0-0' }}%</span> }
+              <button class="c565878-DASH-786986-BOARD-product-wish" [class.c565878-DASH-786986-BOARD-saved]="store.isWishlisted(product.id)" type="button" (click)="store.toggleWishlist(product)" [attr.aria-label]="store.isWishlisted(product.id) ? 'Remove from wishlist' : 'Add to wishlist'"><i class="bi" [class.bi-heart-fill]="store.isWishlisted(product.id)" [class.bi-heart]="!store.isWishlisted(product.id)"></i></button>
+            </div>
+            <div class="c565878-DASH-786986-BOARD-product-info">
+              <h3 class="c565878-DASH-786986-BOARD-product-title"><a [routerLink]="['/product']" [queryParams]="{ id: product.id }">{{ product.name }}</a></h3>
+              <div class="c565878-DASH-786986-BOARD-product-price">{{ product.price | currency:'INR':'symbol':'1.2-2' }} @if (product.oldPrice > product.price) { <span class="c565878-DASH-786986-BOARD-old-price">{{ product.oldPrice | currency:'INR':'symbol':'1.2-2' }}</span> }</div>
+              <div class="c565878-DASH-786986-BOARD-product-actions"><button class="c565878-DASH-786986-BOARD-btn-add" type="button" (click)="store.addToCart(product)"><i class="bi bi-bag-plus me-1"></i>Add to Cart</button><a class="btn c565878-DASH-786986-BOARD-btn-view" [routerLink]="['/product']" [queryParams]="{ id: product.id }" aria-label="View product"><i class="bi bi-eye"></i></a></div>
+            </div>
+          </article>
+        }
+      </div>
+      <div class="text-center mt-4"><a href="/collections" class="btn c565878-DASH-786986-BOARD-btn-outline-brand">Shop all products</a></div>
+    </section>
+
+    <section class="c565878-DASH-786986-BOARD-newsletter">
+      <div class="container-xl c565878-DASH-786986-BOARD-newsletter-inner c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed"><div><span class="c565878-DASH-786986-BOARD-eyebrow">THE MAKER'S NOTE</span><h2>Fresh ideas, delivered.</h2><p>Sign up for new arrivals, craft essentials and store updates.</p><p aria-live="polite">{{ newsletterMessage() }}</p></div><form (ngSubmit)="subscribe()"><input type="email" name="newsletterEmail" [ngModel]="newsletterEmail()" (ngModelChange)="newsletterEmail.set($event)" placeholder="Enter your email address" required aria-label="Email address"><button type="submit">Subscribe <i class="bi bi-arrow-right ms-2"></i></button></form></div>
+    </section>
+  </main>
