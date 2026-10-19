@@ -36,6 +36,8 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Build Angular app
         run: npm run build -- --base-href=/tamilan-products-ui/
