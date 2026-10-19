@@ -19,6 +19,17 @@ account/contact forms, and demo orders are stored in browser `localStorage`.
 Checkout and payment are front-end demos only; connect a payment provider and a
 server before accepting real orders or payments.
 
+## Deploy to GitHub Pages
+
+Pushing to `main` automatically builds and deploys the Angular app with GitHub
+Actions. After the first deployment completes, the site is available at
+<https://arun12334.github.io/tamilan-products-ui/>.
+
+The workflow builds with the repository's project-site base path and publishes
+an SPA fallback so routed pages continue to load when opened directly. GitHub
+Pages only hosts static files; backend-dependent account and payment features
+need a separately deployed API before they can work on the public site.
+
 ## Razorpay checkout
 
 The `/razorpay` page uses the signed-in user from `login.php` and the PHP API at

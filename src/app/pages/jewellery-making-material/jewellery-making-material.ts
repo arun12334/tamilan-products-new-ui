@@ -17,7 +17,7 @@ interface JewelleryCategory {
 })
 export class JewelleryMakingMaterial {
   readonly categories: JewelleryCategory[] = [
-    { name: 'Bangle Base', searchTerm: 'Bangle Base', image: '/assets/images/beads.svg' },
-    { name: 'Charms', searchTerm: 'Charms', image: '/assets/images/stones.svg' },
+    { name: 'Bangle Base', searchTerm: 'Bangle Base', image: 'assets/images/beads.svg' },
+    { name: 'Charms', searchTerm: 'Charms', image: 'assets/images/stones.svg' },
   ];
 }

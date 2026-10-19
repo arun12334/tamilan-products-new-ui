@@ -28,13 +28,13 @@ export class Dashboard {
   readonly store = inject(StoreService);
   readonly newsletterEmail = signal('');
   readonly newsletterMessage = signal('');
-  readonly heroBackground = "linear-gradient(110deg, #181724b5, #1817242e), url('/assets/images/craft-hero.svg') center/cover";
+  readonly heroBackground = "linear-gradient(110deg, #181724b5, #1817242e), url('assets/images/craft-hero.svg') center/cover";
   readonly imageUrls = {
-    beads: '/assets/images/beads.svg',
-    stones: '/assets/images/stones.svg',
-    threads: '/assets/images/threads.svg',
-    tools: '/assets/images/tools.svg',
-    tailoring: '/assets/images/tailoring.svg',
+    beads: 'assets/images/beads.svg',
+    stones: 'assets/images/stones.svg',
+    threads: 'assets/images/threads.svg',
+    tools: 'assets/images/tools.svg',
+    tailoring: 'assets/images/tailoring.svg',
   };
 
   readonly menuSections: DashboardMenuSection[] = [
@@ -101,7 +101,7 @@ export class Dashboard {
       description: 'Browse materials for creating artificial flowers.',
       route: '/artificial-flower-making-material',
       cards: [
-        { name: 'Browse Flower Materials', image: '/assets/images/craft-hero.svg' },
+        { name: 'Browse Flower Materials', image: 'assets/images/craft-hero.svg' },
       ],
     },
     {
@@ -110,10 +110,10 @@ export class Dashboard {
       description: 'Decorative components for making brooches.',
       route: '/brooch-material',
       cards: [
-        { name: 'Flowers', image: '/assets/images/craft-hero.svg' },
+        { name: 'Flowers', image: 'assets/images/craft-hero.svg' },
         { name: 'Petals', image: this.imageUrls.beads },
         { name: 'Shells', image: this.imageUrls.stones },
-        { name: 'Butterfly', image: '/assets/images/craft-hero.svg' },
+        { name: 'Butterfly', image: 'assets/images/craft-hero.svg' },
         { name: 'Bows', image: this.imageUrls.threads },
       ],
     },

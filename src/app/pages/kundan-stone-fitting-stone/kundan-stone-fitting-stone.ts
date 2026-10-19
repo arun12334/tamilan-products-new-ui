@@ -15,7 +15,7 @@ interface KundanStoneCategory {
   styleUrl: './kundan-stone-fitting-stone.css',
 })
 export class KundanStoneFittingStone {
-  readonly image = '/assets/images/stones.svg';
+  readonly image = 'assets/images/stones.svg';
   readonly categories: KundanStoneCategory[] = [
     { name: 'Matt Kundan Stone', searchTerm: 'Matt Kundan Stone' },
     { name: 'Glossy Kundan Stone', searchTerm: 'Glossy Kundan Stone' },

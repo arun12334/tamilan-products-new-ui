@@ -24,11 +24,11 @@ export class Collection {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
   readonly imageUrls = {
-    beads: '/assets/images/beads.svg',
-    stones: '/assets/images/stones.svg',
-    threads: '/assets/images/threads.svg',
-    tools: '/assets/images/tools.svg',
-    tailoring: '/assets/images/tailoring.svg',
+    beads: 'assets/images/beads.svg',
+    stones: 'assets/images/stones.svg',
+    threads: 'assets/images/threads.svg',
+    tools: 'assets/images/tools.svg',
+    tailoring: 'assets/images/tailoring.svg',
   };
   readonly category = signal('');
   readonly subcategory = signal('');

@@ -17,11 +17,11 @@ interface BroochCategory {
 })
 export class BroochMaterial {
   readonly categories: BroochCategory[] = [
-    { name: 'Flowers', searchTerm: 'Flowers', image: '/assets/images/craft-hero.svg' },
-    { name: 'Petals', searchTerm: 'Petals', image: '/assets/images/beads.svg' },
-    { name: 'Shells', searchTerm: 'Shells', image: '/assets/images/stones.svg' },
-    { name: 'Butterfly', searchTerm: 'Butterfly', image: '/assets/images/craft-hero.svg' },
-    { name: 'Bows', searchTerm: 'Bows', image: '/assets/images/threads.svg' },
-    { name: 'Mini Flowers', searchTerm: 'Mini Flowers', image: '/assets/images/craft-hero.svg' },
+    { name: 'Flowers', searchTerm: 'Flowers', image: 'assets/images/craft-hero.svg' },
+    { name: 'Petals', searchTerm: 'Petals', image: 'assets/images/beads.svg' },
+    { name: 'Shells', searchTerm: 'Shells', image: 'assets/images/stones.svg' },
+    { name: 'Butterfly', searchTerm: 'Butterfly', image: 'assets/images/craft-hero.svg' },
+    { name: 'Bows', searchTerm: 'Bows', image: 'assets/images/threads.svg' },
+    { name: 'Mini Flowers', searchTerm: 'Mini Flowers', image: 'assets/images/craft-hero.svg' },
   ];
 }

@@ -17,7 +17,7 @@ interface ComboPackCategory {
 })
 export class ComboPack {
   readonly categories: ComboPackCategory[] = [
-    { id: 'beginner-combos', title: 'Beginner Combos', image: '/assets/images/beads.svg' },
-    { id: 'professional-combo', title: 'Professional Combo', image: '/assets/images/stones.svg' },
+    { id: 'beginner-combos', title: 'Beginner Combos', image: 'assets/images/beads.svg' },
+    { id: 'professional-combo', title: 'Professional Combo', image: 'assets/images/stones.svg' },
   ];
 }

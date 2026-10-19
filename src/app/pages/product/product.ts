@@ -22,11 +22,11 @@ export class Product {
   readonly quantity = signal(1);
   readonly productId = signal(1);
   readonly imageUrls: Record<ImageKey, string> = {
-    beads: '/assets/images/beads.svg',
-    stones: '/assets/images/stones.svg',
-    threads: '/assets/images/threads.svg',
-    tools: '/assets/images/tools.svg',
-    tailoring: '/assets/images/tailoring.svg',
+    beads: 'assets/images/beads.svg',
+    stones: 'assets/images/stones.svg',
+    threads: 'assets/images/threads.svg',
+    tools: 'assets/images/tools.svg',
+    tailoring: 'assets/images/tailoring.svg',
   };
   private readonly rows: ProductRow[] = [
     [1, 'Aari Work Pearl Round Shape -1Bunch (12 lines) Color - White (2mm, 3mm, 4mm)', 'Beads Collections', 'Bunch Beads', 120, 120, 'White', '2MM', 'beads'],
