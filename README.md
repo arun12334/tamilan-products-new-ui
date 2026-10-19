@@ -21,8 +21,9 @@ server before accepting real orders or payments.
 
 ## Deploy to GitHub Pages
 
-Pushing to `main` automatically builds and deploys the Angular app with GitHub
-Actions. After the first deployment completes, the site is available at
+For the first deployment, open the repository's **Settings → Pages** and set
+the build and deployment source to **GitHub Actions**. After that, pushing to
+`main` automatically builds and deploys the Angular app. The site is available at
 <https://arun12334.github.io/tamilan-products-ui/>.
 
 The workflow builds with the repository's project-site base path and publishes
