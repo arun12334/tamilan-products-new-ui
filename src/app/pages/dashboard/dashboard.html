@@ -33,7 +33,7 @@
           </article>
         }
       </div>
-      <div  class="c565878-DASH-786986-BOARD-hero-dots hero-carousel-dots" aria-label="Choose a featured banner">
+      <div class="c565878-DASH-786986-BOARD-hero-dots hero-carousel-dots" aria-label="Choose a featured banner">
         @for (slide of heroSlides; track slide; let index = $index) {
           <button type="button" [class.c565878-DASH-786986-BOARD-hero-dot-active]="activeHeroSlide() === index" [class.hero-carousel-dot-active]="activeHeroSlide() === index" [attr.aria-label]="'Show banner ' + (index + 1)" [attr.aria-current]="activeHeroSlide() === index ? 'true' : null" (click)="showHeroSlide(index)"></button>
         }
