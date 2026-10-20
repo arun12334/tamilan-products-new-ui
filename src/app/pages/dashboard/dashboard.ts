@@ -48,50 +48,10 @@ export class Dashboard implements OnInit {
   };
 
   readonly heroSlides = [
-    {
-      eyebrow: 'MADE FOR YOUR CREATIVITY',
-      title: 'Every Detail Begins',
-      highlight: 'With the Right Material.',
-      description: 'Discover quality Aari, embroidery and jewellery-making materials for your next beautiful creation.',
-      image: this.imageUrls.stones,
-      imageAlt: 'Colorful stones for embroidery and jewellery making',
-      background: 'linear-gradient(115deg, #51243b, #70334f 58%, #a56783)',
-      route: '/collections',
-      action: 'Explore Collections',
-    },
-    {
-      eyebrow: 'FOR YOUR NEXT MASTERPIECE',
-      title: 'Little Details.',
-      highlight: 'Beautiful Results.',
-      description: 'Stock up on the essentials that bring your embroidery and Aari designs to life.',
-      image: this.imageUrls.beads,
-      imageAlt: 'Decorative beads for handmade creations',
-      background: 'linear-gradient(115deg, #482235, #71344f 58%, #aa6d86)',
-      route: '/collection',
-      action: 'Shop Beads',
-    },
-    {
-      eyebrow: 'THREADS THAT INSPIRE',
-      title: 'Bring Your Ideas',
-      highlight: 'To Life.',
-      description: 'Find beautiful threads and dependable essentials for every stitch and creative project.',
-      image: this.imageUrls.threads,
-      imageAlt: 'Colorful thread materials for sewing and embroidery',
-      background: 'linear-gradient(115deg, #34304a, #5f4967 58%, #a47782)',
-      route: '/aari-material',
-      action: 'Shop Aari Materials',
-    },
-    {
-      eyebrow: 'TOOLS FOR EVERY MAKER',
-      title: 'Create With',
-      highlight: 'Confidence.',
-      description: 'Explore quality tailoring and craft tools, carefully selected for your next project.',
-      image: this.imageUrls.tailoring,
-      imageAlt: 'Tailoring materials and craft essentials',
-      background: 'linear-gradient(115deg, #423124, #76533c 58%, #b48b65)',
-      route: '/tailoring-material',
-      action: 'Shop Tailoring',
-    },
+    'assets/dashboard/banner-1.png',
+    'assets/dashboard/banner-2.png',
+    'assets/dashboard/banner-3.png',
+    'assets/dashboard/banner-4.png',
   ];
 
   readonly menuSections: DashboardMenuSection[] = [

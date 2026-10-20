@@ -25,28 +25,16 @@
 }
 
 <main>
-    <section class="c565878-DASH-786986-BOARD-hero-banner hero-carousel" aria-label="Featured collections">
+    <section class="c565878-DASH-786986-BOARD-hero-banner hero-carousel" aria-label="Featured banners">
       <div class="c565878-DASH-786986-BOARD-hero-track hero-carousel-track">
-        @for (slide of heroSlides; track slide.eyebrow; let index = $index) {
-          <article class="c565878-DASH-786986-BOARD-hero-slide hero-carousel-slide" [class.hero-carousel-slide-active]="activeHeroSlide() === index" [style.background]="slide.background" [attr.aria-hidden]="activeHeroSlide() !== index" [attr.inert]="activeHeroSlide() !== index ? '' : null">
-            <div class="c565878-DASH-786986-BOARD-hero-shade"></div>
-            <div class="container-xl c565878-DASH-786986-BOARD-hero-content hero-carousel-content c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
-              <span class="c565878-DASH-786986-BOARD-eyebrow"><i class="bi bi-stars"></i> {{ slide.eyebrow }}</span>
-              <h1>{{ slide.title }}<br><span>{{ slide.highlight }}</span></h1>
-              <p>{{ slide.description }}</p>
-              <a class="btn c565878-DASH-786986-BOARD-btn-brand btn-lg" [routerLink]="slide.route">{{ slide.action }} <i class="bi bi-arrow-right ms-2"></i></a>
-              @if (index === 0) {
-                <div class="c565878-DASH-786986-BOARD-hero-trust"><span><i class="bi bi-shield-check"></i> Secure payments</span><span><i class="bi bi-box-seam"></i> Quality materials</span><span><i class="bi bi-truck"></i> Shipping across India</span></div>
-              }
-            </div>
-            <div class="c565878-DASH-786986-BOARD-hero-art hero-carousel-art">
-              <img [ngSrc]="slide.image" [alt]="slide.imageAlt" width="720" height="540" [priority]="index === 0">
-            </div>
+        @for (slide of heroSlides; track slide; let index = $index) {
+          <article class="hero-carousel-slide" [class.hero-carousel-slide-active]="activeHeroSlide() === index" [attr.aria-hidden]="activeHeroSlide() !== index" [attr.inert]="activeHeroSlide() !== index ? '' : null">
+            <img class="hero-carousel-image" [ngSrc]="slide" [alt]="'Tamilan Products featured banner ' + (index + 1)" width="2110" height="745" [priority]="index === 0">
           </article>
         }
       </div>
       <div class="c565878-DASH-786986-BOARD-hero-dots hero-carousel-dots" aria-label="Choose a featured banner">
-        @for (slide of heroSlides; track slide.eyebrow; let index = $index) {
+        @for (slide of heroSlides; track slide; let index = $index) {
           <button type="button" [class.c565878-DASH-786986-BOARD-hero-dot-active]="activeHeroSlide() === index" [class.hero-carousel-dot-active]="activeHeroSlide() === index" [attr.aria-label]="'Show banner ' + (index + 1)" [attr.aria-current]="activeHeroSlide() === index ? 'true' : null" (click)="showHeroSlide(index)"></button>
         }
       </div>
