@@ -40,6 +40,12 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --base-href=/tamilan-products-ui/
 
+      - name: Verify dashboard banner assets
+        run: |
+          for banner in banner-1.png banner-2.png banner-3.png banner-4.png; do
+            test -s "dist/cashfree-payment-app/browser/assets/dashboard/$banner"
+          done
+
       - name: Support direct route navigation
         run: cp dist/cashfree-payment-app/browser/index.html dist/cashfree-payment-app/browser/404.html
 
@@ -51,3 +57,14 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify deployed dashboard banners
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          for banner in banner-1.png banner-2.png banner-3.png banner-4.png; do
+            curl --fail --silent --show-error --location \
+              --retry 8 --retry-all-errors --retry-delay 10 \
+              "${PAGE_URL%/}/assets/dashboard/$banner" \
+              --output /dev/null
+          done
