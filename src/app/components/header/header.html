@@ -1,8 +1,20 @@
 <div class="c324700-SHARED-998412-promo-bar">
-  <div class="container-xl d-flex justify-content-between align-items-center gap-3">
-    <span>🎁 100% secure online payment, COD Not Available</span>
-    <span class="c324700-SHARED-998412-promo-center"><i class="bi bi-fire"></i> FREE SHIPPING AVAILABLE on Orders Above ₹999/-</span>
-    <span class="c324700-SHARED-998412-socials" aria-label="Social media"><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i><i class="bi bi-youtube"></i><i class="bi bi-pinterest"></i></span>
+  <div class="container-xl c324700-SHARED-998412-promo-content">
+    <div class="c324700-SHARED-998412-promo-rotator" aria-live="polite" aria-atomic="true">
+      @for (message of promoMessages; track message.text; let index = $index) {
+        @if (activePromoMessage() === index) {
+          <span class="c324700-SHARED-998412-promo-message"><i [class]="message.icon" aria-hidden="true"></i> {{ message.text }}</span>
+        }
+      }
+    </div>
+    <label class="c324700-SHARED-998412-currency-selector">
+      <span class="c324700-SHARED-998412-currency-label">{{ selectedCountry().code }} ({{ selectedCountry().country }}) <i class="bi bi-chevron-down" aria-hidden="true"></i></span>
+      <select [value]="selectedCountry().country" (change)="selectCountry($event)" aria-label="Choose country and currency">
+        @for (country of countryOptions; track country.country) {
+          <option [value]="country.country">{{ country.code }} ({{ country.country }})</option>
+        }
+      </select>
+    </label>
   </div>
 </div>
 
@@ -26,9 +38,23 @@
       </div>
     </div>
     <nav id="main-navigation" class="c324700-SHARED-998412-main-nav" [class.c324700-SHARED-998412-mobile-open]="mobileMenuOpen()" aria-label="Main navigation">
-      <a routerLink="/" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">Dashboard</a>
+      <a class="c324700-SHARED-998412-mobile-nav-link" routerLink="/" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">Dashboard</a>
+      <a class="c324700-SHARED-998412-desktop-nav-link" routerLink="/" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      @for (item of primaryMenuItems; track item.route) {
+        <a class="c324700-SHARED-998412-desktop-nav-link" [routerLink]="item.route" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page">{{ item.name }}</a>
+      }
+      <div class="c324700-SHARED-998412-nav-more" [class.c324700-SHARED-998412-nav-more-open]="moreMenuOpen()" (mouseenter)="openMoreMenu()" (mouseleave)="closeMoreMenu()" (keydown.escape)="closeMoreMenu()">
+        <button class="c324700-SHARED-998412-nav-more-button" type="button" (click)="openMoreMenu()" [attr.aria-expanded]="moreMenuOpen()" aria-controls="more-navigation">
+          More <i class="bi bi-chevron-down" aria-hidden="true"></i>
+        </button>
+        <div id="more-navigation" class="c324700-SHARED-998412-more-menu">
+          @for (item of moreMenuItems; track item.route) {
+            <a [routerLink]="item.route" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" (click)="closeMoreMenu()">{{ item.name }}</a>
+          }
+        </div>
+      </div>
       @for (item of menuItems; track item.route) {
-        <a [routerLink]="item.route" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" (click)="closeMobileMenu()">{{ item.name }}</a>
+        <a class="c324700-SHARED-998412-mobile-nav-link" [routerLink]="item.route" routerLinkActive="c324700-SHARED-998412-active" ariaCurrentWhenActive="page" (click)="closeMobileMenu()">{{ item.name }}</a>
       }
     </nav>
   </div>

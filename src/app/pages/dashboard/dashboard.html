@@ -1,14 +1,55 @@
-<main>
-    <section class="c565878-DASH-786986-BOARD-hero-banner" [style.background]="heroBackground">
-      <div class="c565878-DASH-786986-BOARD-hero-shade"></div>
-      <div class="container-xl c565878-DASH-786986-BOARD-hero-content c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
-        <span class="c565878-DASH-786986-BOARD-eyebrow"><i class="bi bi-stars"></i> MADE FOR YOUR CREATIVITY</span>
-        <h1>Every Detail Begins<br><span>With the Right Material.</span></h1>
-        <p>Discover quality Aari, embroidery and jewellery-making materials for your next beautiful creation.</p>
-        <a class="btn c565878-DASH-786986-BOARD-btn-brand btn-lg" routerLink="/collections">Explore Collections <i class="bi bi-arrow-right ms-2"></i></a>
-        <div class="c565878-DASH-786986-BOARD-hero-trust"><span><i class="bi bi-shield-check"></i> Secure payments</span><span><i class="bi bi-box-seam"></i> Quality materials</span><span><i class="bi bi-truck"></i> Shipping across India</span></div>
+@if (countrySelectionOpen()) {
+  <div class="country-welcome-backdrop">
+    <section class="country-welcome-dialog" role="dialog" aria-modal="true" aria-labelledby="country-welcome-title" aria-describedby="country-welcome-description">
+      <div class="country-welcome-art" aria-hidden="true">
+        <span class="country-welcome-globe"><i class="bi bi-globe-americas"></i></span>
+        <span class="country-welcome-spark country-welcome-spark-one"><i class="bi bi-stars"></i></span>
+        <span class="country-welcome-spark country-welcome-spark-two"><i class="bi bi-gem"></i></span>
+        <p>Made with care.<br><strong>Delivered to you.</strong></p>
       </div>
-      <div class="c565878-DASH-786986-BOARD-hero-floating-card"><i class="bi bi-gem"></i><span><b>Craft your style</b><small>Materials for every idea</small></span></div>
+      <div class="country-welcome-content">
+        <span class="country-welcome-eyebrow"><i class="bi bi-flower1"></i> TAMILAN PRODUCTS</span>
+        <h2 id="country-welcome-title">Choose your country</h2>
+        <p id="country-welcome-description" class="country-welcome-description">We deliver worldwide. 🌍<br>Select your country to explore our craft essentials.</p>
+        <label for="country-welcome-select">Select country</label>
+        <select id="country-welcome-select" name="country" [ngModel]="selectedCountry().country" (ngModelChange)="selectCountryName($event)" autofocus>
+          @for (country of countryOptions; track country.country) {
+            <option [value]="country.country">{{ country.country }} ({{ country.code }})</option>
+          }
+        </select>
+        <button class="country-welcome-continue" type="button" (click)="continueWithCountry()">Continue <i class="bi bi-arrow-right"></i></button>
+        <small>You can change your country anytime from the header.</small>
+      </div>
+    </section>
+  </div>
+}
+
+<main>
+    <section class="c565878-DASH-786986-BOARD-hero-banner hero-carousel" aria-label="Featured collections">
+      <div class="c565878-DASH-786986-BOARD-hero-track hero-carousel-track">
+        @for (slide of heroSlides; track slide.eyebrow; let index = $index) {
+          <article class="c565878-DASH-786986-BOARD-hero-slide hero-carousel-slide" [class.hero-carousel-slide-active]="activeHeroSlide() === index" [style.background]="slide.background" [attr.aria-hidden]="activeHeroSlide() !== index" [attr.inert]="activeHeroSlide() !== index ? '' : null">
+            <div class="c565878-DASH-786986-BOARD-hero-shade"></div>
+            <div class="container-xl c565878-DASH-786986-BOARD-hero-content hero-carousel-content c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">
+              <span class="c565878-DASH-786986-BOARD-eyebrow"><i class="bi bi-stars"></i> {{ slide.eyebrow }}</span>
+              <h1>{{ slide.title }}<br><span>{{ slide.highlight }}</span></h1>
+              <p>{{ slide.description }}</p>
+              <a class="btn c565878-DASH-786986-BOARD-btn-brand btn-lg" [routerLink]="slide.route">{{ slide.action }} <i class="bi bi-arrow-right ms-2"></i></a>
+              @if (index === 0) {
+                <div class="c565878-DASH-786986-BOARD-hero-trust"><span><i class="bi bi-shield-check"></i> Secure payments</span><span><i class="bi bi-box-seam"></i> Quality materials</span><span><i class="bi bi-truck"></i> Shipping across India</span></div>
+              }
+            </div>
+            <div class="c565878-DASH-786986-BOARD-hero-art hero-carousel-art">
+              <img [ngSrc]="slide.image" [alt]="slide.imageAlt" width="720" height="540" [priority]="index === 0">
+            </div>
+          </article>
+        }
+      </div>
+      <div class="c565878-DASH-786986-BOARD-hero-dots hero-carousel-dots" aria-label="Choose a featured banner">
+        @for (slide of heroSlides; track slide.eyebrow; let index = $index) {
+          <button type="button" [class.c565878-DASH-786986-BOARD-hero-dot-active]="activeHeroSlide() === index" [class.hero-carousel-dot-active]="activeHeroSlide() === index" [attr.aria-label]="'Show banner ' + (index + 1)" [attr.aria-current]="activeHeroSlide() === index ? 'true' : null" (click)="showHeroSlide(index)"></button>
+        }
+      </div>
     </section>
 
     <section class="container-xl c565878-DASH-786986-BOARD-benefit-strip c565878-DASH-786986-BOARD-reveal c565878-DASH-786986-BOARD-revealed">

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Header, NAVIGATION_CATEGORIES } from './components/header/header';
+import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
 import { StoreService } from './services/store.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CurrencyPipe, Header, RouterLink, RouterOutlet],
+  imports: [CurrencyPipe, Footer, Header, RouterLink, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -15,11 +16,9 @@ import { StoreService } from './services/store.service';
   },
 })
 export class App {
-  readonly year = new Date().getFullYear();
   readonly freeShippingThreshold = 999;
   readonly store = inject(StoreService);
   readonly showBackToTop = signal(false);
-  readonly categories = NAVIGATION_CATEGORIES;
 
   get shippingProgress(): number {
     return Math.min(100, this.store.cartTotal() / this.freeShippingThreshold * 100);

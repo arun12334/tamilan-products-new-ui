@@ -23,11 +23,6 @@ import { Shipping } from './pages/shipping/shipping';
 import { Terms } from './pages/terms/terms';
 import { Wishlist } from './pages/wishlist/wishlist';
 
-
-
-
-
-
 export const routes: Routes = [
   {
     path: '',
@@ -121,6 +116,7 @@ export const routes: Routes = [
     path: 'wishlist',
     component: Wishlist,
   },
+
   {
     path: '**',
     redirectTo: '',

@@ -1,7 +1,12 @@
 import { CurrencyPipe, DecimalPipe, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { interval } from 'rxjs';
+import { COUNTRY_CURRENCY_OPTIONS } from '../../components/header/header';
+import type { CountryCurrencyOption } from '../../components/header/header';
+import { CountryPreferenceService } from '../../services/country-preference.service';
 import { ShopProduct, StoreService } from '../../services/store.service';
 
 interface DashboardCategoryCard {
@@ -24,11 +29,16 @@ interface DashboardMenuSection {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
   readonly store = inject(StoreService);
+  private readonly countryPreference = inject(CountryPreferenceService);
   readonly newsletterEmail = signal('');
   readonly newsletterMessage = signal('');
-  readonly heroBackground = "linear-gradient(110deg, #181724b5, #1817242e), url('assets/images/craft-hero.svg') center/cover";
+  readonly activeHeroSlide = signal(0);
+  readonly countrySelectionOpen = signal(false);
+  readonly countryOptions = COUNTRY_CURRENCY_OPTIONS;
+  readonly selectedCountry = this.countryPreference.selectedCountry;
+  private readonly destroyRef = inject(DestroyRef);
   readonly imageUrls = {
     beads: 'assets/images/beads.svg',
     stones: 'assets/images/stones.svg',
@@ -36,6 +46,53 @@ export class Dashboard {
     tools: 'assets/images/tools.svg',
     tailoring: 'assets/images/tailoring.svg',
   };
+
+  readonly heroSlides = [
+    {
+      eyebrow: 'MADE FOR YOUR CREATIVITY',
+      title: 'Every Detail Begins',
+      highlight: 'With the Right Material.',
+      description: 'Discover quality Aari, embroidery and jewellery-making materials for your next beautiful creation.',
+      image: this.imageUrls.stones,
+      imageAlt: 'Colorful stones for embroidery and jewellery making',
+      background: 'linear-gradient(115deg, #51243b, #70334f 58%, #a56783)',
+      route: '/collections',
+      action: 'Explore Collections',
+    },
+    {
+      eyebrow: 'FOR YOUR NEXT MASTERPIECE',
+      title: 'Little Details.',
+      highlight: 'Beautiful Results.',
+      description: 'Stock up on the essentials that bring your embroidery and Aari designs to life.',
+      image: this.imageUrls.beads,
+      imageAlt: 'Decorative beads for handmade creations',
+      background: 'linear-gradient(115deg, #482235, #71344f 58%, #aa6d86)',
+      route: '/collection',
+      action: 'Shop Beads',
+    },
+    {
+      eyebrow: 'THREADS THAT INSPIRE',
+      title: 'Bring Your Ideas',
+      highlight: 'To Life.',
+      description: 'Find beautiful threads and dependable essentials for every stitch and creative project.',
+      image: this.imageUrls.threads,
+      imageAlt: 'Colorful thread materials for sewing and embroidery',
+      background: 'linear-gradient(115deg, #34304a, #5f4967 58%, #a47782)',
+      route: '/aari-material',
+      action: 'Shop Aari Materials',
+    },
+    {
+      eyebrow: 'TOOLS FOR EVERY MAKER',
+      title: 'Create With',
+      highlight: 'Confidence.',
+      description: 'Explore quality tailoring and craft tools, carefully selected for your next project.',
+      image: this.imageUrls.tailoring,
+      imageAlt: 'Tailoring materials and craft essentials',
+      background: 'linear-gradient(115deg, #423124, #76533c 58%, #b48b65)',
+      route: '/tailoring-material',
+      action: 'Shop Tailoring',
+    },
+  ];
 
   readonly menuSections: DashboardMenuSection[] = [
     {
@@ -138,6 +195,35 @@ export class Dashboard {
     { id: 7, name: 'Glass Seed or Sugar Beads 2mm Green Color (25grams)', category: 'Beads Collections', sub: 'Glass Seed Beads', price: 30, oldPrice: 30, color: 'Green', size: '2MM', image: this.imageUrls.beads },
     { id: 8, name: 'Simba Sugar or Seed Beads Gold Color 12-0 (2mm)', category: 'Beads Collections', sub: 'Sugar Beads', price: 60, oldPrice: 70, color: 'Gold', size: '2MM', image: this.imageUrls.beads },
   ];
+
+  ngOnInit(): void {
+    const showCountryWelcome = !this.countryPreference.hasSeenWelcome();
+    this.countrySelectionOpen.set(showCountryWelcome);
+    if (showCountryWelcome) this.countryPreference.resetCountryToDefault();
+    interval(3000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.showHeroSlide((this.activeHeroSlide() + 1) % this.heroSlides.length));
+  }
+
+  selectCountry(event: Event): void {
+    const target = event.target;
+    if (!(target instanceof HTMLSelectElement)) return;
+    this.selectCountryName(target.value);
+  }
+
+  selectCountryName(countryName: string): void {
+    const country = this.countryOptions.find(option => option.country === countryName);
+    if (country) this.countryPreference.selectCountry(country);
+  }
+
+  continueWithCountry(): void {
+    this.countryPreference.completeWelcome();
+    this.countrySelectionOpen.set(false);
+  }
+
+  showHeroSlide(index: number): void {
+    this.activeHeroSlide.set(index);
+  }
 
   subscribe(): void {
     const email = this.newsletterEmail().trim();
