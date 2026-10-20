@@ -38,7 +38,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build Angular app
-        run: npm run build -- --base-href=/tamilan-products-ui/
+        run: npm run build -- --base-href=/${{ github.event.repository.name }}/
 
       - name: Verify dashboard banner assets
         run: |
